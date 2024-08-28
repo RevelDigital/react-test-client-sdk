@@ -31,7 +31,7 @@ jobs:
       - name: Deploy webapp to Revel CMS
         uses: RevelDigital/webapp-action@v1.0.11
         with:
-          api-key: aXb8ohF9YZWEJGcu64Qxug
+          api-key: ${{ secrets.Revel_API_key }}
           environment: ${{ github.head_ref || github.ref_name }}
           distribution-location: build
 
