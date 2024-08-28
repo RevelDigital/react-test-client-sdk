@@ -1,0 +1,40 @@
+name: Deploy Webapp
+on: push
+
+
+jobs:
+  release-webapp:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
+        with:
+          node-version: 22
+
+      - name: install react
+        run: npm install -g react
+
+      - name: npm dependencies
+        run: npm install
+
+      - name: Build webapp
+        run: ng build
+
+      - name: Deploy webapp to Revel CMS
+        uses: RevelDigital/webapp-action@v1.0.11
+        with:
+          api-key: aXb8ohF9YZWEJGcu64Qxug
+          environment: ${{ github.head_ref || github.ref_name }}
+          distribution-location: build
+
+
+
+
